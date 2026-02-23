@@ -25,6 +25,11 @@ function createUsersRouter(usersService) {
 
   usersRouter.get('/:id', async (req, res) => {
     const id = Number(req.params.id);
+
+    if (Number.isNaN(id)) {
+      return res.sendStatus(400);
+    }
+
     const user = await usersService.getById(id);
 
     if (!user) {
@@ -36,6 +41,11 @@ function createUsersRouter(usersService) {
 
   usersRouter.delete('/:id', async (req, res) => {
     const id = Number(req.params.id);
+
+    if (Number.isNaN(id)) {
+      return res.sendStatus(400);
+    }
+
     const user = await usersService.getById(id);
 
     if (!user) {
@@ -50,6 +60,15 @@ function createUsersRouter(usersService) {
   usersRouter.patch('/:id', async (req, res) => {
     const id = Number(req.params.id);
     const { name } = req.body;
+
+    if (Number.isNaN(id)) {
+      return res.sendStatus(400);
+    }
+
+    if (!name) {
+      return res.sendStatus(400);
+    }
+
     const user = await usersService.getById(id);
 
     if (!user) {
